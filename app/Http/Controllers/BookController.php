@@ -15,7 +15,7 @@ class BookController extends ApirestController
      */
     public function index()
     {
-         
+
     }
 
     /**
@@ -32,7 +32,7 @@ class BookController extends ApirestController
         $data = json_decode(file_get_contents($url), true);
 
         if (!$data) {
-            return $this->errorResponse("ISBN no fue encontrado", 404);
+            return $this->errorResponse("ISBN no fue encontrado", 400);
         }
         $param = "ISBN:" . $isbn;
         $request['id'] = $isbn;
@@ -42,6 +42,7 @@ class BookController extends ApirestController
 
             $book = Book::create($request->all());
             $book = Book::find($isbn);
+        
 
 
             $authors = isset($data[$param]['authors']) ? $data[$param]['authors'] : [];
